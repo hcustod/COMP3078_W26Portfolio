@@ -23,7 +23,7 @@ const formatCategory = (category: PortfolioDocument['category']) =>
   `${category.charAt(0).toUpperCase()}${category.slice(1)}`;
 ---
 <section class="section-shell shell" id={sectionId}>
-  <SectionHeading eyebrow="Downloads" title={title} intro={intro} />
+  <SectionHeading title={title} intro={intro} />
   <div class="card-grid card-grid-wide">
     {documentItems.map((document) => (
       <article class="glass-card compact-card" data-reveal>

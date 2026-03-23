@@ -1,41 +1,64 @@
 ---
 import { Image } from 'astro:assets';
-import SectionHeading from './SectionHeading.astro';
+import Icon from '../ui/Icon.astro';
 import { skillGroups } from '../../data/site';
 
 interface Props {
-  eyebrow?: string;
   title?: string;
-  intro?: string;
   sectionId?: string;
 }
 
 const {
-  eyebrow = 'Skills',
-  title = 'Technical range across software, cloud, and systems work',
-  intro = 'Grouped for fast scanning across languages, frameworks, infrastructure, and tooling.',
+  title = 'Technical Range',
   sectionId,
 } = Astro.props;
+
+const carouselId = `${sectionId ?? 'skills'}-carousel-track`;
 ---
 <section class="section-shell shell" id={sectionId}>
-  <SectionHeading
-    eyebrow={eyebrow}
-    title={title}
-    intro={intro}
-  />
-  <div class="card-grid card-grid-wide">
-    {skillGroups.map((group) => (
-      <article class="glass-card" data-reveal>
-        <h3>{group.title}</h3>
-        <div class="skill-cloud">
-          {group.items.map((item) => (
-            <div class="skill-pill">
-              <Image src={item.icon} alt={item.name} width={40} height={40} />
-              <span>{item.name}</span>
+  <div class="skills-carousel" data-skills-carousel>
+    <div class="skills-carousel-header section-heading" data-reveal>
+      <h2>{title}</h2>
+      <div class="skills-carousel-controls" aria-label="Skill group carousel controls">
+        <button
+          class="skills-carousel-button is-prev"
+          type="button"
+          aria-controls={carouselId}
+          aria-label="Show previous skill groups"
+          data-skills-prev
+        >
+          <Icon name="arrow" class="h-4 w-4" />
+        </button>
+        <button
+          class="skills-carousel-button"
+          type="button"
+          aria-controls={carouselId}
+          aria-label="Show next skill groups"
+          data-skills-next
+        >
+          <Icon name="arrow" class="h-4 w-4" />
+        </button>
+      </div>
+    </div>
+
+    <div class="skills-carousel-viewport">
+      <div class="skills-carousel-track" id={carouselId} data-skills-track>
+        {skillGroups.map((group) => (
+          <article class="glass-card skill-group-card skill-carousel-card" data-reveal>
+            <h3>{group.title}</h3>
+            <div class="skill-cloud">
+              {group.items.map((item) => (
+                <div class="skill-pill">
+                  <span class="skill-icon-box" aria-hidden="true">
+                    <Image src={item.icon} alt={item.name} width={48} height={48} />
+                  </span>
+                  <span class="skill-label">{item.name}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </article>
-    ))}
+          </article>
+        ))}
+      </div>
+    </div>
   </div>
 </section>

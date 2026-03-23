@@ -1,44 +1,39 @@
 ---
 import { Image } from 'astro:assets';
-import SectionHeading from './SectionHeading.astro';
 import { experiences } from '../../data/site';
 
 interface Props {
-  eyebrow?: string;
-  title?: string;
-  intro?: string;
   sectionId?: string;
 }
 
-const {
-  eyebrow = 'Professional experience',
-  title = 'Operational depth across cloud, systems, and application support',
-  intro = 'Selected roles across cloud support, Linux systems, and application delivery.',
-  sectionId,
-} = Astro.props;
+const { sectionId } = Astro.props;
 ---
-<section class="section-shell shell" id={sectionId}>
-  <SectionHeading
-    eyebrow={eyebrow}
-    title={title}
-    intro={intro}
-  />
-  <div class="timeline-grid">
-    {experiences.map((experience) => (
-      <article class="timeline-card" data-reveal>
-        <div class="timeline-head">
+<section class="section-shell shell section-shell-compact-top" id={sectionId}>
+  <div class="timeline-grid professional-timeline">
+    {experiences.map((entry) => (
+      <article class="timeline-card professional-entry" data-reveal>
+        <div class="timeline-head professional-entry-head">
           <div class="timeline-logo">
-            <Image src={experience.logo} alt={experience.company} width={56} height={56} />
+            <Image src={entry.logo} alt={entry.company} width={56} height={56} />
           </div>
-          <div>
-            <h3>{experience.company}</h3>
-            <p>{experience.role}</p>
-            <small>{experience.date} · {experience.location}</small>
+          <div class="professional-entry-meta">
+            <h3>{entry.company}</h3>
+            <p>{entry.role}</p>
+            <small>{entry.date} · {entry.location}</small>
           </div>
         </div>
-        <ul class="bullet-list compact">
-          {experience.points.map((point) => <li>{point}</li>)}
-        </ul>
+        <p class="professional-entry-summary">{entry.summary}</p>
+        <div class="detail-stack professional-entry-details">
+          <div>
+            <h4>Responsibilities</h4>
+            <ul class="bullet-list compact">
+              {entry.points.map((point) => <li>{point}</li>)}
+            </ul>
+          </div>
+        </div>
+        <div class="tech-row professional-entry-tools">
+          {entry.tools.map((tool) => <span class="tag-chip">{tool}</span>)}
+        </div>
       </article>
     ))}
   </div>

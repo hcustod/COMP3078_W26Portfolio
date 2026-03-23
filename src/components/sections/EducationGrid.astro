@@ -1,58 +1,33 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-import { academicHighlights, education } from '../../data/site';
+import { education } from '../../data/site';
 
 interface Props {
-  eyebrow?: string;
   title?: string;
   intro?: string;
   sectionId?: string;
-  ctaHref?: string;
-  ctaLabel?: string;
 }
 
 const {
-  eyebrow = 'Academic background',
-  title = 'Education and academic context',
-  intro = 'Degrees, coursework, and academic highlights gathered in one place.',
+  title = 'Academic Background',
+  intro = 'Degrees, coursework, and program details gathered in one place.',
   sectionId,
-  ctaHref,
-  ctaLabel,
 } = Astro.props;
 ---
 <section class="section-shell shell" id={sectionId}>
-  <SectionHeading
-    eyebrow={eyebrow}
-    title={title}
-    intro={intro}
-  />
-  <div class="two-column-grid">
-    <div class="card-grid">
-      {education.map((item) => (
-        <article class="glass-card" data-reveal>
-          <p class="section-eyebrow">{item.date}</p>
-          <h3>{item.school}</h3>
-          <p class="muted-copy">{item.location}</p>
-          <p><strong>{item.degree}</strong></p>
-          <p>CGPA: {item.cgpa}</p>
-          <ul class="bullet-list compact">
-            {item.coursework.map((course) => <li>{course}</li>)}
-          </ul>
-        </article>
-      ))}
-    </div>
-    <div class="glass-card" data-reveal>
-      <p class="section-eyebrow">Highlights</p>
-      <h3>Academic context</h3>
-      <ul class="bullet-list">
-        {academicHighlights.map((highlight) => (
-          <li>
-            <strong>{highlight.title}:</strong> {highlight.detail}
-          </li>
-        ))}
-      </ul>
-      <p class="status-note">Transcript coverage is optional and not currently published.</p>
-      {ctaHref && ctaLabel && <a class="button-secondary" href={ctaHref}>{ctaLabel}</a>}
-    </div>
+  <SectionHeading title={title} intro={intro} />
+  <div class="card-grid">
+    {education.map((item) => (
+      <article class="glass-card" data-reveal>
+        <p class="section-eyebrow">{item.date}</p>
+        <h3>{item.school}</h3>
+        <p class="muted-copy">{item.location}</p>
+        <p><strong>{item.degree}</strong></p>
+        <p>CGPA: {item.cgpa}</p>
+        <ul class="bullet-list compact">
+          {item.coursework.map((course) => <li>{course}</li>)}
+        </ul>
+      </article>
+    ))}
   </div>
 </section>

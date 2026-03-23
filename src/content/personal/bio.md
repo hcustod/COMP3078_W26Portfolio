@@ -1,3 +1,0 @@
-Henrique Custodio is a developer with hands-on experience across cloud engineering, Linux systems administration, database operations, and full-stack web delivery. His recent work has included containerizing legacy applications, migrating databases, improving deployment workflows, and supporting production systems where reliability matters.
-
-Alongside professional work, he uses academic and personal projects to keep building depth in application development, automation, and infrastructure. The portfolio is designed to keep that work readable: clear project context, practical outcomes, and enough technical detail to show how things were built.

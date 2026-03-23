@@ -1,69 +1,50 @@
 ---
 import Icon from '../ui/Icon.astro';
-import { heroRotator, homeHighlights, siteMeta, socialLinks } from '../../data/site';
+import { socialLinks } from '../../data/site';
+
+interface HeroLink {
+  label: string;
+  href: string;
+  icon: string;
+  tone?: 'accent';
+  full?: boolean;
+}
+
+const heroLinks: HeroLink[] = [
+  { ...socialLinks[1], tone: 'accent', full: true },
+  { ...socialLinks[0] },
+  { ...socialLinks[2] },
+];
 ---
 <section class="hero-shell shell" id="home">
   <div class="hero-panel" data-reveal>
-    <p class="section-eyebrow">Portfolio</p>
-    <h1>
-      Henrique Custodio
-      <span>Developer. Cloud Engineer. Systems-minded builder.</span>
-    </h1>
-    <p class="hero-copy">
-      I build dependable application and infrastructure experiences with an emphasis on clean delivery, practical automation, and production-minded thinking.
-    </p>
-    <div class="hero-rotator">
-      <span>Currently focused on</span>
-      <strong data-rotator data-words={JSON.stringify(heroRotator)}>{heroRotator[0]}</strong>
+    <div class="hero-main">
+      <h1>Henrique Custodio</h1>
+      <p class="hero-role">Developer. Cloud Engineer. Lover of <span class="hero-role-space">Space.</span></p>
+      <p class="hero-copy">
+        I build dependable applications with a passion for clean, scalable, and sustainable development; with a focus on practical delivery.
+      </p>
     </div>
-    <div class="hero-actions">
-      <a class="button-primary" href="/academic-projects/">
-        <Icon name="arrow" class="h-4 w-4" />
-        <span>Explore work</span>
-      </a>
-      <a class="button-secondary" href="/about/">
-        <Icon name="user" class="h-4 w-4" />
-        <span>About and credentials</span>
-      </a>
-    </div>
-    <div class="social-cluster" aria-label="Social links">
-      {socialLinks.map((link) => (
-        <a class="icon-link" href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel={link.href.startsWith('http') ? 'noreferrer' : undefined}>
-          <Icon name={link.icon} class="h-4 w-4" />
-          <span>{link.label}</span>
-        </a>
-      ))}
-    </div>
-  </div>
 
-  <div class="hero-aside" data-reveal>
-    <div class="insight-card">
-      <p class="section-eyebrow">Site focus</p>
-      <ul>
-        {homeHighlights.map((item) => (
-          <li>
-            <Icon name="star" class="h-4 w-4" />
-            <span>{item}</span>
-          </li>
+    <div class="hero-side">
+      <div class="hero-social-grid" aria-label="Primary links">
+        {heroLinks.map((link) => (
+          <a
+            class:list={[
+              'icon-link',
+              'hero-social-link',
+              link.tone === 'accent' && 'hero-social-link-accent',
+              link.full && 'hero-social-link-full',
+            ]}
+            href={link.href}
+            target={link.href.startsWith('http') ? '_blank' : undefined}
+            rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+          >
+            <Icon name={link.icon} class="h-4 w-4" />
+            <span>{link.label}</span>
+          </a>
         ))}
-      </ul>
-    </div>
-    <div class="insight-card">
-      <p class="section-eyebrow">At a glance</p>
-      <dl class="mini-facts">
-        <div>
-          <dt>Based in</dt>
-          <dd>{siteMeta.location}</dd>
-        </div>
-        <div>
-          <dt>Resume</dt>
-          <dd><a href={siteMeta.resumePath} target="_blank" rel="noreferrer">Current PDF</a></dd>
-        </div>
-        <div>
-          <dt>Email</dt>
-          <dd><a href={`mailto:${siteMeta.email}`}>{siteMeta.email}</a></dd>
-        </div>
-      </dl>
+      </div>
     </div>
   </div>
 </section>

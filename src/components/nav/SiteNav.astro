@@ -11,9 +11,14 @@ const { currentPath = '/' } = Astro.props;
 
 const primaryLinks = [
   { label: 'Home', href: '/', matches: ['/'] },
-  { label: 'Work', href: '/academic-projects/', matches: ['/academic-projects/', '/professional/', '/capstone/'] },
-  { label: 'About', href: '/about/', matches: ['/about/', '/academic-credentials/', '/documents/'] },
+  { label: 'Professional', href: '/professional/', matches: ['/professional/'] },
+  { label: 'About', href: '/about/', matches: ['/about/', '/academic-credentials/'] },
   { label: 'Contact', href: '/#contact', matches: [] },
+] as const;
+
+const workLinks = [
+  { label: 'Academic & Personal', href: '/academic-projects/', matches: ['/academic-projects/'] },
+  { label: 'Capstone', href: '/capstone/', matches: ['/capstone/'] },
 ] as const;
 
 const isPathActive = (href: string, matches: readonly string[]) => href === '/'
@@ -21,14 +26,14 @@ const isPathActive = (href: string, matches: readonly string[]) => href === '/'
   : href.startsWith('/#')
     ? false
     : matches.some((match) => currentPath.startsWith(match));
+
+const isWorkActive = workLinks.some((item) => isPathActive(item.href, item.matches));
 ---
 <header class="site-header">
   <div class="shell">
     <div class="nav-shell">
       <a class="brand-lockup" href="/" aria-label="Go to the homepage">
-        <span class="brand-mark">
-          <Image src={siteMeta.logo} alt="Henrique Custodio logo" width={40} height={40} />
-        </span>
+        <Image class="brand-logo" src={siteMeta.logo} alt="Henrique Custodio logo" width={40} height={40} />
         <span class="brand-copy">
           <strong>Henrique Custodio</strong>
           <span>Portfolio</span>
@@ -41,7 +46,29 @@ const isPathActive = (href: string, matches: readonly string[]) => href === '/'
         </button>
 
         <nav id="site-nav" class="nav-links" data-nav-drawer>
-          {primaryLinks.map((item) => (
+          <a class:list={['nav-link', isPathActive(primaryLinks[0].href, primaryLinks[0].matches) && 'is-active']} href={primaryLinks[0].href}>
+            <span>{primaryLinks[0].label}</span>
+          </a>
+          <div class:list={['nav-dropdown', isWorkActive && 'is-active']} data-work-dropdown>
+            <button
+              class:list={['nav-link', 'nav-link-button', isWorkActive && 'is-active']}
+              type="button"
+              aria-expanded="false"
+              aria-haspopup="true"
+              data-work-toggle
+            >
+              <span>Projects</span>
+              <Icon name="chevronDown" class="h-4 w-4 nav-chevron" />
+            </button>
+            <div class="nav-submenu" data-work-menu>
+              {workLinks.map((item) => (
+                <a class:list={['nav-submenu-link', isPathActive(item.href, item.matches) && 'is-active']} href={item.href}>
+                  <span>{item.label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+          {primaryLinks.slice(1).map((item) => (
             <a class:list={['nav-link', isPathActive(item.href, item.matches) && 'is-active']} href={item.href}>
               <span>{item.label}</span>
             </a>

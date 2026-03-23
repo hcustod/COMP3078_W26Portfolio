@@ -4,21 +4,15 @@ import { useMemo, useState } from 'preact/hooks';
 export interface ExplorerProject {
   slug: string;
   title: string;
+  track: string;
   category: string;
-  year: number;
   summary: string;
-  context: string;
   tech: string[];
   imageSrc: string;
   code: string;
   demo?: string;
   docker?: string;
-  projectType: string;
-  focusArea: string;
-  timeline: string;
-  role: string;
   features: string[];
-  reflection: string;
 }
 
 interface Props {
@@ -33,8 +27,14 @@ export default function ProjectsExplorerClient({
   initialCount = 6,
 }: Props) {
   const [query, setQuery] = useState('');
+  const [selectedTrack, setSelectedTrack] = useState('All');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [visibleCount, setVisibleCount] = useState(initialCount);
+
+  const tracks = useMemo(
+    () => ['All', ...Array.from(new Set(projects.map((project) => project.track)))],
+    [projects]
+  );
 
   const categories = useMemo(
     () => ['All', ...Array.from(new Set(projects.map((project) => project.category)))],
@@ -45,16 +45,13 @@ export default function ProjectsExplorerClient({
     const normalizedQuery = query.trim().toLowerCase();
 
     return projects.filter((project) => {
+      const matchesTrack = selectedTrack === 'All' || project.track === selectedTrack;
       const matchesCategory = selectedCategory === 'All' || project.category === selectedCategory;
       const searchSpace = [
         project.title,
+        project.track,
+        project.category,
         project.summary,
-        project.context,
-        project.projectType,
-        project.focusArea,
-        project.timeline,
-        project.role,
-        project.reflection,
         project.tech.join(' '),
         project.features.join(' '),
       ]
@@ -62,13 +59,18 @@ export default function ProjectsExplorerClient({
         .toLowerCase();
 
       const matchesQuery = !normalizedQuery || searchSpace.includes(normalizedQuery);
-      return matchesCategory && matchesQuery;
+      return matchesTrack && matchesCategory && matchesQuery;
     });
-  }, [projects, query, selectedCategory]);
+  }, [projects, query, selectedTrack, selectedCategory]);
 
   const visibleProjects = filteredProjects.slice(0, visibleCount);
 
   const resetVisibleCount = () => setVisibleCount(initialCount);
+
+  const handleTrackChange = (track: string) => {
+    setSelectedTrack(track);
+    resetVisibleCount();
+  };
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
@@ -90,26 +92,50 @@ export default function ProjectsExplorerClient({
           </svg>
           <input
             type="search"
-            placeholder="Search title, tech, or reflection"
+            placeholder="Search title, tech, or feature"
             value={query}
             onInput={(event) => handleQueryChange((event.currentTarget as HTMLInputElement).value)}
           />
         </label>
-        <div class="project-filters" role="tablist" aria-label="Project categories">
-          {categories.map((category) => {
-            const isActive = category === selectedCategory;
-            return (
-              <button
-                key={category}
-                class={`filter-chip${isActive ? ' is-active' : ''}`}
-                type="button"
-                aria-pressed={isActive}
-                onClick={() => handleCategoryChange(category)}
-              >
-                {category}
-              </button>
-            );
-          })}
+        <div class="project-filter-groups">
+          <div class="project-filter-group">
+            <span class="project-filter-label">Work type</span>
+            <div class="project-filters" role="tablist" aria-label="Project work types">
+              {tracks.map((track) => {
+                const isActive = track === selectedTrack;
+                return (
+                  <button
+                    key={track}
+                    class={`filter-chip${isActive ? ' is-active' : ''}`}
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() => handleTrackChange(track)}
+                  >
+                    {track}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <div class="project-filter-group">
+            <span class="project-filter-label">Category</span>
+            <div class="project-filters" role="tablist" aria-label="Project categories">
+              {categories.map((category) => {
+                const isActive = category === selectedCategory;
+                return (
+                  <button
+                    key={category}
+                    class={`filter-chip${isActive ? ' is-active' : ''}`}
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() => handleCategoryChange(category)}
+                  >
+                    {category}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -121,13 +147,11 @@ export default function ProjectsExplorerClient({
             </a>
             <div class="project-card-body">
               <div class="project-meta-row">
+                <span class="tag-chip tag-chip-accent">{project.track}</span>
                 <span class="tag-chip">{project.category}</span>
-                <span class="muted-copy">{project.timeline}</span>
               </div>
               <h3>{project.title}</h3>
               <p>{project.summary}</p>
-              <p class="muted-copy">{project.context}</p>
-              <p class="project-kicker">{project.projectType}</p>
               <div class="tech-row">
                 {project.tech.map((tech) => (
                   <span key={`${project.slug}-${tech}`} class="tag-chip">
@@ -137,37 +161,21 @@ export default function ProjectsExplorerClient({
               </div>
               <div class="project-links">
                 {project.demo && (
-                  <a href={project.demo} target="_blank" rel="noreferrer">
-                    <span>Live</span>
+                  <a class="project-link-button project-link-button-primary" href={project.demo} target="_blank" rel="noreferrer">
+                    <span>Live Demo</span>
                   </a>
                 )}
-                <a href={project.code} target="_blank" rel="noreferrer">
-                  <span>Code</span>
+                <a class="project-link-button" href={project.code} target="_blank" rel="noreferrer">
+                  <span>Source Code</span>
                 </a>
                 {project.docker && (
-                  <a href={project.docker} target="_blank" rel="noreferrer">
-                    <span>Docker</span>
+                  <a class="project-link-button" href={project.docker} target="_blank" rel="noreferrer">
+                    <span>Docker Image</span>
                   </a>
                 )}
               </div>
               {detailMode && (
                 <div class="detail-stack">
-                  <dl class="detail-list">
-                    <div>
-                      <dt>Type</dt>
-                      <dd>
-                        {project.projectType}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt>Focus</dt>
-                      <dd>{project.focusArea}</dd>
-                    </div>
-                    <div>
-                      <dt>Role</dt>
-                      <dd>{project.role}</dd>
-                    </div>
-                  </dl>
                   <div>
                     <h4>Key features</h4>
                     <ul class="bullet-list compact">
@@ -175,10 +183,6 @@ export default function ProjectsExplorerClient({
                         <li key={`${project.slug}-${feature}`}>{feature}</li>
                       ))}
                     </ul>
-                  </div>
-                  <div>
-                    <h4>Reflection</h4>
-                    <p>{project.reflection}</p>
                   </div>
                 </div>
               )}

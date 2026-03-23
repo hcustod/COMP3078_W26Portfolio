@@ -1,5 +1,6 @@
 import logo from '../assets/myLogo/myFinalLogoTeal.png';
 import bdsrLogo from '../assets/experienceLogos/bdsr-logo-final.png';
+import gigALogo from '../assets/experienceLogos/gig-a-logo.svg';
 import inteleradLogo from '../assets/experienceLogos/intelerad-logo.jpeg';
 import telusLogo from '../assets/experienceLogos/telus-icon.png';
 
@@ -49,11 +50,9 @@ export const siteMeta = {
     'Portfolio for Henrique Custodio featuring projects, professional experience, academic background, and capstone work.',
   email: 'h.custodio.dev@gmail.com',
   location: 'Toronto, Ontario, Canada',
-  resumePath: '/resume/Henrique_Custodio_Resume_Updated_2025.pdf',
-  coverLetterPath: '/docs/cover-letter-template.txt',
-  philosophyPath: '/docs/career-philosophy-statement.txt',
-  academicSummaryPath: '/docs/academic-credentials-summary.txt',
-  capstoneOutlinePath: '/docs/capstone-project-management-outline.txt',
+  resumePath: '/resume/Henrique_Custodio_Resume_2026.pdf',
+  coverLetterPath: '/docs/Henrique_Custodio_Cover_Letter.pdf',
+  capstoneDocumentsPath: '/capstone/#documents',
   logo,
 };
 
@@ -63,33 +62,38 @@ export const socialLinks = [
   { label: 'Email', href: `mailto:${siteMeta.email}`, icon: 'mail' },
 ] as const;
 
-export const heroRotator = [
-  'Developer',
-  'Cloud Engineer',
-  'Systems Operator',
-  'Automation Builder',
-  'Builder',
-];
-
-export const homeHighlights = [
-  'Work now groups projects, professional material, and capstone coverage into one path.',
-  'About combines bio, academic background, certifications, and core documents.',
-  'The transparent interface keeps the Three.js background visible across the site.',
-];
-
 export const experiences = [
+  {
+    company: 'Gig-a',
+    role: 'Developer Technical Support',
+    date: 'October 2025 - Present',
+    location: 'Toronto, ON',
+    logo: gigALogo,
+    link: '#',
+    summary:
+      'Supported a Java-based file transfer platform through escalated technical support, certificate automation, platform remediation, and legacy modernization work.',
+    points: [
+      'Provide escalated developer support for a Java-based file transfer platform, troubleshooting application and infrastructure issues.',
+      'Automated SSL certificate renewal across the enterprise fleet, improving reliability and reducing manual overhead.',
+      'Modernized legacy codebases and tooling using Apache Tomcat, Apache Struts, and Apache Commons.',
+      'Perform server patching and remediation in alignment with security scan findings and compliance requirements.',
+    ],
+    tools: ['Java', 'Apache Tomcat', 'Apache Struts', 'SSL', 'Linux', 'Patching', 'Support'],
+  },
   {
     company: 'Bohrium Data & Security Research Corp.',
     role: 'Assistant Developer',
-    date: 'October 2024 - Present',
+    date: 'October 2024 - September 2025',
     location: 'Toronto, ON',
     logo: bdsrLogo,
     link: '#',
+    summary:
+      'Supported modernization work for legacy web properties by upgrading PostgreSQL, migrating CMS workloads to AWS and GCP, and tightening backup and monitoring practices.',
     points: [
-      'Containerized legacy CMS sites with Docker and deployed them to AWS and GCP environments using repeatable rollout patterns.',
-      'Migrated PostgreSQL databases to current supported versions while protecting data integrity and availability.',
-      'Provisioned secure cloud infrastructure including virtual machines, storage, DNS, firewalls, and SSL certificates.',
-      'Improved operational resilience through backups, monitoring, and disaster recovery routines.',
+      'Migrated end-of-life PostgreSQL deployments to version 13+ while protecting data integrity and performance.',
+      'Moved CMS websites to AWS and GCP, provisioning secure infrastructure with virtual machines, storage, DNS, firewalls, and SSL.',
+      'Verified automated backup and disaster recovery integrity through scenario-based QA checks and regular audits.',
+      'Set up monitoring, alerting, and scheduled backups for cloud workloads to support availability and disaster recovery readiness.',
     ],
     tools: ['Docker', 'PostgreSQL', 'AWS', 'GCP', 'Git', 'Java', 'Bash', 'CI/CD'],
   },
@@ -100,11 +104,14 @@ export const experiences = [
     location: 'Toronto, ON',
     logo: inteleradLogo,
     link: 'https://www.intelerad.com/en/',
+    summary:
+      'Provided systems administration and production support for healthcare imaging environments where Linux reliability, database performance, and incident response were critical.',
     points: [
-      'Supported production Linux environments powering PACS radiology systems and related services.',
-      'Maintained HL7 and DICOM routing services, scheduled jobs, SELinux policies, and network controls.',
-      'Administered Sybase and PostgreSQL databases with a focus on performance and security.',
-      'Automated repeatable deployment and troubleshooting work with Bash and infrastructure tooling.',
+      'Managed and optimized RHEL servers running PACS radiology software.',
+      'Deployed and maintained Linux services including HL7 and DICOM routers, cron jobs, SELinux policy, and iptables controls.',
+      'Administered and fine-tuned Sybase and PostgreSQL databases for performance and security.',
+      'Provided rapid resolution for high-severity production incidents while meeting SLA expectations.',
+      'Collaborated with cross-functional teams to automate deployment pipelines for new client environments using Ansible and Bash.',
     ],
     tools: ['RHEL', 'PostgreSQL', 'Sybase', 'HL7', 'Bash', 'Ansible', 'DICOM'],
   },
@@ -115,11 +122,13 @@ export const experiences = [
     location: 'Montreal, QC',
     logo: telusLogo,
     link: 'https://www.telus.com',
+    summary:
+      'Resolved cloud platform issues for enterprise customers using structured troubleshooting, Linux diagnostics, and clear technical communication.',
     points: [
-      'Resolved Google Cloud support cases spanning Cloud SQL, BigQuery, Firestore, Filestore, and Spanner.',
-      'Used Linux diagnostics, networking tools, and storage analysis to isolate production issues quickly.',
-      'Applied DevOps practices to support enterprise workloads and improve reliability for customers.',
-      'Created internal knowledge articles and troubleshooting guides to reduce escalation cycles.',
+      'Resolved technical issues across Google Cloud services, with a focus on cloud databases and storage including Cloud SQL, BigQuery, Firestore, and Spanner.',
+      'Investigated and reproduced customer-reported bugs using structured troubleshooting workflows and Linux-based tools.',
+      'Applied infrastructure and platform support practices to move issues toward resolution under production conditions.',
+      'Produced documentation and troubleshooting guidance that supported clearer handoff and faster investigation.',
     ],
     tools: ['GCP', 'Bash', 'Git', 'Jira', 'Networking', 'IAM', 'Java', 'Python'],
   },
@@ -154,21 +163,6 @@ export const education = [
       'Scientific communication and written reports.',
       'Critical thinking and behavioral analysis.',
     ],
-  },
-];
-
-export const academicHighlights = [
-  {
-    title: 'Program standing',
-    detail: 'Current portfolio data shows a 3.84 / 4.0 CGPA in the Advanced Diploma program.',
-  },
-  {
-    title: 'Credential summary',
-    detail: 'Education history and certifications are grouped here for faster review.',
-  },
-  {
-    title: 'Project archive',
-    detail: 'Project work is shown separately in the archive so the portfolio remains easy to scan by category.',
   },
 ];
 
@@ -272,79 +266,26 @@ export const skillGroups = [
   },
 ];
 
-export const professionalSamples = [
-  {
-    title: 'Cloud modernization and deployment support',
-    organization: 'Bohrium Data & Security Research Corp.',
-    summary:
-      'Supported modernization work for legacy web properties by containerizing deployments, updating databases, and standardizing cloud infrastructure delivery.',
-    outcomes: [
-      'Created repeatable Docker-based deployment patterns.',
-      'Reduced manual infrastructure setup through documented provisioning steps.',
-      'Improved operational resilience with backups and monitoring routines.',
-    ],
-    tools: ['Docker', 'AWS', 'GCP', 'PostgreSQL', 'Git', 'Bash'],
-  },
-  {
-    title: 'Clinical systems operations and automation',
-    organization: 'Intelerad Medical Systems',
-    summary:
-      'Provided technical support and systems administration for healthcare imaging environments where reliability and incident response were critical.',
-    outcomes: [
-      'Maintained Linux application servers and database platforms.',
-      'Worked through high-severity support issues with SLA pressure.',
-      'Improved repeatability through automation and internal documentation.',
-    ],
-    tools: ['Linux', 'Bash', 'Ansible', 'PostgreSQL', 'Sybase', 'HL7/DICOM'],
-  },
-  {
-    title: 'Enterprise cloud troubleshooting',
-    organization: 'TELUS / Google Cloud support work',
-    summary:
-      'Resolved infrastructure and database issues for cloud customers using structured troubleshooting and written communication.',
-    outcomes: [
-      'Worked across database, storage, and networking services.',
-      'Produced documentation that reduced repeated escalations.',
-      'Strengthened customer-facing technical communication.',
-    ],
-    tools: ['GCP', 'Cloud SQL', 'BigQuery', 'Networking', 'Linux'],
-  },
-];
-
 export const documents: PortfolioDocument[] = [
   {
     title: 'Resume',
     path: siteMeta.resumePath,
     type: 'PDF',
-    summary: 'Current resume used by the homepage and documents index.',
+    summary: 'Current 2026 resume used by the homepage and document links.',
     category: 'personal',
   },
   {
-    title: 'Cover Letter Template',
+    title: 'Cover Letter',
     path: siteMeta.coverLetterPath,
-    type: 'TXT',
-    summary: 'Editable cover letter template targeted at developer and cloud-focused roles.',
+    type: 'PDF',
+    summary: 'Cover letter PDF aligned with the current portfolio and resume set.',
     category: 'personal',
   },
   {
-    title: 'Career Philosophy Statement',
-    path: siteMeta.philosophyPath,
-    type: 'TXT',
-    summary: 'Short reflection on career direction, working style, and professional growth.',
-    category: 'personal',
-  },
-  {
-    title: 'Academic Credentials Summary',
-    path: siteMeta.academicSummaryPath,
-    type: 'TXT',
-    summary: 'Snapshot of degrees, certifications, and academic highlights.',
-    category: 'academic',
-  },
-  {
-    title: 'Capstone Outline',
-    path: siteMeta.capstoneOutlinePath,
-    type: 'TXT',
-    summary: 'Compact written overview of the capstone concept and structure.',
+    title: 'WrenchIT Capstone Documents',
+    path: siteMeta.capstoneDocumentsPath,
+    type: 'Hub',
+    summary: 'Capstone document shelf with the project vision, requirements, design packet, technology plan, report, and final deck.',
     category: 'capstone',
   },
 ];

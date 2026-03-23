@@ -777,10 +777,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/saira@npm:^5.2.6":
-  version: 5.2.6
-  resolution: "@fontsource/saira@npm:5.2.6"
-  checksum: 10c0/14ee48762d34a8fdbc6c6c8947b936fe83a922d5993a6854481bfa9982dbe545dceaa329b02a7a33a2c85a992b6c4c1f34731388942fd03051f15733e0475a4f
+"@fontsource/manrope@npm:^5.2.8":
+  version: 5.2.8
+  resolution: "@fontsource/manrope@npm:5.2.8"
+  checksum: 10c0/25144b4c5e185ba20a656f28cf225b3fcf5139a3f741716fcbfcda55f27f241ba1457d0aa395613990fb18ecffd0ad781f21dad4def50a80c0d90fd9252d8664
+  languageName: node
+  linkType: hard
+
+"@fontsource/space-grotesk@npm:^5.2.10":
+  version: 5.2.10
+  resolution: "@fontsource/space-grotesk@npm:5.2.10"
+  checksum: 10c0/dabe027e9ef8e4dc5d6982e3ff5a73a311a151c06f2dc0b881468c9bab4f0b39106f182aa29be8e1a4ea10ce435dea807bdcb982176ee5e81083fd3814f5a5bd
   languageName: node
   linkType: hard
 
@@ -6082,7 +6089,8 @@ __metadata:
     "@astrojs/check": "npm:^0.9.7"
     "@astrojs/preact": "npm:^4.1.0"
     "@eslint/js": "npm:^9"
-    "@fontsource/saira": "npm:^5.2.6"
+    "@fontsource/manrope": "npm:^5.2.8"
+    "@fontsource/space-grotesk": "npm:^5.2.10"
     "@tailwindcss/vite": "npm:^4.1.4"
     "@types/three": "npm:^0.183.1"
     astro: "npm:^5.7.5"

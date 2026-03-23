@@ -1,111 +1,29 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import ProjectsExplorer from '../components/sections/ProjectsExplorer.astro';
-import ProfessionalHighlights from '../components/sections/ProfessionalHighlights.astro';
-import ExperienceTimeline from '../components/sections/ExperienceTimeline.astro';
 import SectionHeading from '../components/sections/SectionHeading.astro';
-import Icon from '../components/ui/Icon.astro';
-import { capstone } from '../data/capstone';
 import { projectArchive } from '../data/projects';
 
 const currentPath = Astro.url.pathname;
-const anchors = [
-  { id: 'archive', label: 'Archive' },
-  { id: 'professional', label: 'Professional' },
-  { id: 'capstone', label: 'Capstone' },
-];
 ---
 <BaseLayout
   currentPath={currentPath}
-  title="Work | Henrique Custodio"
-  description="Projects, professional experience, and capstone coverage grouped into one work-focused page."
+  title="Academic Work | Henrique Custodio"
+  description="Academic and project-focused work collected into one dedicated section."
 >
-  <section class="section-shell shell page-hero">
+  <section class="section-shell shell page-hero archive-page-hero">
     <SectionHeading
-      eyebrow="Work"
-      title="Projects, professional delivery, and capstone work"
-      intro="This page groups the execution-focused side of the portfolio into one flow: independent builds, production-facing experience, and the capstone system."
+      title="Academic Work and Projects Archive"
+      intro="An archive of my academic and personal projects."
     />
-    <div class="anchor-nav" data-reveal>
-      {anchors.map((anchor) => (
-        <a class="filter-chip" href={`#${anchor.id}`}>{anchor.label}</a>
-      ))}
-    </div>
   </section>
 
   <ProjectsExplorer
-    title="Project archive"
-    intro="Independent builds, prototypes, and systems-heavy experiments with the context needed to understand how each one was put together."
     projects={projectArchive}
     sectionId="archive"
-    initialCount={8}
+    compactSpacing={true}
+    initialCount={9}
     detailMode={true}
     hydrate="load"
   />
-
-  <ProfessionalHighlights
-    sectionId="professional"
-    eyebrow="Professional samples"
-    title="Selected delivery snapshots"
-    intro="Three concise examples of production-facing work across cloud support, systems operations, and infrastructure delivery."
-  />
-
-  <ExperienceTimeline
-    title="Professional experience"
-    intro="A direct timeline of roles across cloud support, Linux systems administration, and development work."
-  />
-
-  <section class="section-shell shell" id="capstone">
-    <SectionHeading
-      eyebrow="Capstone"
-      title={capstone.projectTitle}
-      intro="The capstone still has its own detailed page, but the key structure is surfaced here so the work story stays in one place."
-    />
-    <div class="two-column-grid">
-      <article class="glass-card" data-reveal>
-        <p class="section-eyebrow">Summary and vision</p>
-        <h3>Project direction</h3>
-        <p>{capstone.summary}</p>
-        <p class="status-note">{capstone.vision}</p>
-      </article>
-      <article class="glass-card" data-reveal>
-        <p class="section-eyebrow">Requirements</p>
-        <h3>Business and workflow goals</h3>
-        <ul class="bullet-list compact">
-          {capstone.businessRequirements.map((requirement) => <li>{requirement}</li>)}
-        </ul>
-      </article>
-    </div>
-    <div class="card-grid card-grid-wide">
-      <article class="glass-card" data-reveal>
-        <p class="section-eyebrow">Project plan</p>
-        <h3>Delivery phases</h3>
-        <ul class="bullet-list compact">
-          {capstone.projectPlan.map((step) => <li><strong>{step.phase}:</strong> {step.detail}</li>)}
-        </ul>
-      </article>
-      <article class="glass-card" data-reveal>
-        <p class="section-eyebrow">Implementation</p>
-        <h3>Technical shape of the system</h3>
-        <ul class="bullet-list compact">
-          {capstone.implementation.map((item) => <li>{item}</li>)}
-        </ul>
-      </article>
-      <article class="glass-card" data-reveal>
-        <p class="section-eyebrow">Full case study</p>
-        <h3>Open the detailed capstone page</h3>
-        <p>The dedicated capstone page includes analysis and design, wireframe direction, status reports, and the downloadable outline.</p>
-        <div class="stack-actions">
-          <a class="button-secondary" href="/capstone/">
-            <Icon name="arrow" class="h-4 w-4" />
-            <span>Open capstone page</span>
-          </a>
-          <a class="button-secondary" href={capstone.artifacts[0].href} target="_blank" rel="noreferrer">
-            <Icon name="download" class="h-4 w-4" />
-            <span>Open outline</span>
-          </a>
-        </div>
-      </article>
-    </div>
-  </section>
 </BaseLayout>

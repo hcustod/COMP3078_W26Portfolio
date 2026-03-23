@@ -2,10 +2,7 @@
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
 import ProjectsExplorer from '../components/sections/ProjectsExplorer.astro';
-import SkillsGrid from '../components/sections/SkillsGrid.astro';
 import ContactPanel from '../components/sections/ContactPanel.astro';
-import SectionHeading from '../components/sections/SectionHeading.astro';
-import Icon from '../components/ui/Icon.astro';
 import { featuredProjects } from '../data/projects';
 
 const currentPath = Astro.url.pathname;
@@ -13,49 +10,12 @@ const currentPath = Astro.url.pathname;
 <BaseLayout currentPath={currentPath}>
   <Hero />
   <ProjectsExplorer
-    title="Featured projects"
-    intro="The landing page keeps a concise overview of selected work. The Work page expands these entries with project type, focus area, features, and reflection details."
+    title="Featured Projects"
+    intro="Projects of different kinds which I have created over the years."
     projects={featuredProjects}
     sectionId="projects"
     initialCount={6}
     hydrate="visible"
   />
-  <section class="section-shell shell">
-    <SectionHeading
-      eyebrow="Site flow"
-      title="A smaller set of destinations"
-      intro="Home keeps the overview tight. Work holds projects, professional material, and capstone coverage. About collects background, credentials, and documents."
-    />
-    <div class="card-grid card-grid-wide">
-      <article class="glass-card" data-reveal>
-        <p class="section-eyebrow">Work</p>
-        <h3>Projects, professional evidence, and capstone</h3>
-        <p>The work page is the main destination for case-study material and execution-focused portfolio content.</p>
-        <a class="button-secondary" href="/academic-projects/">
-          <Icon name="arrow" class="h-4 w-4" />
-          <span>Open work</span>
-        </a>
-      </article>
-      <article class="glass-card" data-reveal>
-        <p class="section-eyebrow">About</p>
-        <h3>Personal background and academic credentials</h3>
-        <p>Bio, career direction, education, certifications, and the core written material now live together.</p>
-        <a class="button-secondary" href="/about/">
-          <Icon name="user" class="h-4 w-4" />
-          <span>Open about</span>
-        </a>
-      </article>
-      <article class="glass-card" data-reveal>
-        <p class="section-eyebrow">Downloads</p>
-        <h3>Resume and supporting documents</h3>
-        <p>Supporting files stay easy to find without taking over the primary navigation.</p>
-        <a class="button-secondary" href="/documents/">
-          <Icon name="download" class="h-4 w-4" />
-          <span>Open downloads</span>
-        </a>
-      </article>
-    </div>
-  </section>
-  <SkillsGrid />
   <ContactPanel />
 </BaseLayout>

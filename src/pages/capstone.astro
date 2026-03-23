@@ -5,112 +5,64 @@ import Icon from '../components/ui/Icon.astro';
 import { capstone } from '../data/capstone';
 
 const currentPath = Astro.url.pathname;
-const anchors = [
-  { id: 'summary', label: 'Summary' },
-  { id: 'vision', label: 'Vision' },
-  { id: 'requirements', label: 'Requirements' },
-  { id: 'plan', label: 'Plan' },
-  { id: 'analysis-design', label: 'Analysis & Design' },
-  { id: 'wireframes', label: 'Wireframes' },
-  { id: 'status-reports', label: 'Status Reports' },
-  { id: 'implementation', label: 'Implementation' },
-];
 ---
 <BaseLayout
   currentPath={currentPath}
   title="Capstone | Henrique Custodio"
-  description="Capstone hub with summary, vision, business requirements, plan, analysis and design, wireframes, status reports, and implementation notes."
+  description="WrenchIT capstone overview with the published project documents linked directly from the page."
 >
-  <section class="section-shell shell page-hero">
+  <section class="section-shell shell page-hero capstone-page-hero">
     <SectionHeading
-      eyebrow="Capstone hub"
       title={capstone.projectTitle}
       intro={capstone.statusNote}
     />
-    <div class="toolbar-actions" data-reveal>
-      <a class="button-secondary" href="/academic-projects/#capstone">Open the integrated Work page</a>
-    </div>
-    <div class="anchor-nav" data-reveal>
-      {anchors.map((anchor) => (
-        <a class="filter-chip" href={`#${anchor.id}`}>{anchor.label}</a>
-      ))}
-    </div>
   </section>
 
-  <section class="section-shell shell">
-    <div class="card-grid">
+  <section class="section-shell shell capstone-section">
+    <article class="glass-card prose-card capstone-overview-card" data-reveal>
+      <h3>Project Overview</h3>
+      {capstone.overview.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </article>
+  </section>
+
+  <section class="section-shell shell capstone-section" id="documents">
+    <SectionHeading
+      title="Published Capstone Resources"
+      intro="Open the published project packet in-browser where available, or download the source files directly from the same capstone flow."
+    />
+    <div class="card-grid capstone-artifact-grid">
       {capstone.artifacts.map((artifact) => (
-        <article class="glass-card compact-card" data-reveal>
-          <div class="card-topline">
-            <p class="section-eyebrow">Resource</p>
+        <article class="glass-card compact-card capstone-artifact-card" data-reveal>
+          <div class="card-topline capstone-artifact-topline">
+            <p class="section-eyebrow">{artifact.category}</p>
           </div>
-          <h3>{artifact.label}</h3>
-          <p>{artifact.detail}</p>
-          <a class="button-secondary" href={artifact.href}>
-            <Icon name="arrow" class="h-4 w-4" />
-            <span>Open</span>
-          </a>
+          <div class="capstone-artifact-copy">
+            <h3>{artifact.label}</h3>
+            <p>{artifact.detail}</p>
+          </div>
+          <div class="artifact-actions capstone-artifact-actions">
+            {artifact.previewable ? (
+              <a class="button-secondary capstone-artifact-button" href={artifact.href} target="_blank" rel="noreferrer">
+                <Icon name="external" class="h-4 w-4" />
+                <span>Open in Browser</span>
+              </a>
+            ) : (
+              <a class="button-secondary capstone-artifact-button" href={artifact.href} download>
+                <Icon name="download" class="h-4 w-4" />
+                <span>Download File</span>
+              </a>
+            )}
+            {artifact.previewable && (
+              <a class="button-secondary capstone-artifact-button" href={artifact.href} download>
+                <Icon name="download" class="h-4 w-4" />
+                <span>Download File</span>
+              </a>
+            )}
+          </div>
         </article>
       ))}
     </div>
-  </section>
-
-  <section class="section-shell shell capstone-stack">
-    <article class="glass-card" id="summary" data-reveal>
-      <p class="section-eyebrow">Project summary</p>
-      <p>{capstone.summary}</p>
-    </article>
-
-    <article class="glass-card" id="vision" data-reveal>
-      <p class="section-eyebrow">Project vision</p>
-      <p>{capstone.vision}</p>
-    </article>
-
-    <article class="glass-card" id="requirements" data-reveal>
-      <p class="section-eyebrow">Project / business requirements</p>
-      <ul class="bullet-list">
-        {capstone.businessRequirements.map((requirement) => <li>{requirement}</li>)}
-      </ul>
-    </article>
-
-    <article class="glass-card" id="plan" data-reveal>
-      <p class="section-eyebrow">Project plan</p>
-      <div class="stack-grid">
-        {capstone.projectPlan.map((step) => (
-          <div class="stack-item">
-            <h3>{step.phase}</h3>
-            <p>{step.detail}</p>
-          </div>
-        ))}
-      </div>
-    </article>
-
-    <article class="glass-card" id="analysis-design" data-reveal>
-      <p class="section-eyebrow">Requirements analysis and design</p>
-      <ul class="bullet-list">
-        {capstone.analysisDesign.map((item) => <li>{item}</li>)}
-      </ul>
-    </article>
-
-    <article class="glass-card" id="wireframes" data-reveal>
-      <p class="section-eyebrow">Wireframes / mockups</p>
-      <ul class="bullet-list">
-        {capstone.wireframes.map((item) => <li>{item}</li>)}
-      </ul>
-    </article>
-
-    <article class="glass-card" id="status-reports" data-reveal>
-      <p class="section-eyebrow">Status reports</p>
-      <ul class="bullet-list">
-        {capstone.statusReports.map((item) => <li>{item}</li>)}
-      </ul>
-    </article>
-
-    <article class="glass-card" id="implementation" data-reveal>
-      <p class="section-eyebrow">System implementation</p>
-      <ul class="bullet-list">
-        {capstone.implementation.map((item) => <li>{item}</li>)}
-      </ul>
-    </article>
   </section>
 </BaseLayout>

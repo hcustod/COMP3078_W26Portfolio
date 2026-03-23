@@ -1,16 +1,16 @@
 # Henrique Custodio Portfolio
 
-Astro-based portfolio aligned to the COMP3078 portfolio assignment requirements.
+An Astro.js based portfolio for the COMP3078 Portfolio Assignment.
 
 ## Routes
 
-- `/` recruiter-facing homepage
-- `/about/` personal data
-- `/academic-credentials/` degrees, certifications, academic notes
-- `/academic-projects/` academic work samples
-- `/capstone/` capstone documentation hub
-- `/professional/` professional summary and work samples
-- `/documents/` centralized downloads
+- `/`  :Homepage
+- `/about/`  :Personal informantion. 
+- `/academic-credentials/`  :Degrees, Certifications, Academic notes.
+- `/academic-projects/`  :Academic work samples
+- `/capstone/`  :Capstone documentation hub
+- `/professional/`  :Professional summary and work samples
+- `/documents/`  :Centralized downloads
 
 ## Local development
 
